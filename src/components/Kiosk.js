@@ -1,3 +1,4 @@
+import { useState } from "react"
 
 const products = [
     {pno:1, pname:'Americano', price: 7000},
@@ -9,15 +10,32 @@ const products = [
 
 const Kiosk = () => {
 
+    const [items, setItems] = useState([])
+
     const handleClickBuy = (product) => {
-        console.log(product)
+        console.log({...product, qty:1})
+
+        const result = items.filter( ele => ele.pno === product.pno )
+
+        console.log("result", result)
+
+        if(result.length === 0) {
+            setItems([...items, {...product, qty:1}])
+            return
+        }
+
+        const cartItem = result[0]
+        cartItem.qty += 1
+        setItems([...items])
+
+        
     }
     
     
     
     return ( 
 
-        <div className="w-full h-[100vh] bg-green-300 flex"> 
+        <div className="w-full h-[100vh] bg-blue-600 flex"> 
             <div className="w-2/3 bg-white ">
                 <div className="text-4xl font-extrabold">Products</div>
                 
@@ -25,7 +43,7 @@ const Kiosk = () => {
                     {products.map( p => 
                     <li
                     key={p.pno} 
-                    className="text-2xl underline m-3 p-3 bg-orange-300"
+                    className="text-2xl underline m-3 p-3 bg-red-600"
                     onClick={() => {handleClickBuy(p)}}
                     >
                         {p.pno} - {p.pname} - {p.price}
@@ -37,6 +55,22 @@ const Kiosk = () => {
             <div className="w-1/3">
                 
             <div className="text-4xl font-extrabold">Cart</div>
+
+            <ul>
+                {items.map( (item, idx) => 
+                <li key={idx} className="border-2">
+                    <div className="flex text-3xl text-black m-4 p-4">
+                        <div>{item.pno}</div>
+                        <div>{item.pname}</div>
+                        <div>{item.price}</div>
+                    </div>
+                    <div className="flex justify-center text-2xl">
+                        <button className="rounded-lg bg-orange-300 p-4 m-1">+</button>
+                        <p className="m-2 text-red-700 p-2">{item.qty}</p>
+                        <button className="rounded-lg bg-orange-300 p-4 m-1">-</button>
+                    </div>
+                </li> )}
+            </ul>
 
             </div>
         </div>
