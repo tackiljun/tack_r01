@@ -1,12 +1,13 @@
 import Kiosk from "./components/kiosk";
 import ProductList from "./components/kiosk/ProductList";
 import Todo1 from "./components/todo1";
+import Todo2 from "./components/todo2";
 
 
 function App() {
   return (
-    <div className="bg-red-600 h-[100vh]">
-      <Todo1></Todo1>
+    <div>
+      <Todo2></Todo2>
     </div>
   );
 }
