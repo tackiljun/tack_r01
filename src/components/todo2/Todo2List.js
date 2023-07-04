@@ -24,7 +24,11 @@ const Todo2List = ({changeView}) => {
             </div>
 
             <ul>
-                {data.dtoList.map( todo => <li key={todo.tno}>{todo.tno} - {todo.title}</li> )}
+                {data.dtoList.map( todo => 
+                    <li key={todo.tno} onClick={() => changeView('read', todo.tno)}>
+                        {todo.tno} - {todo.title}
+                    </li>)
+                }
             </ul>
 
         </div>
